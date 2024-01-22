@@ -10,8 +10,8 @@ import org.springframework.context.annotation.Bean;
 
 import lombok.extern.slf4j.Slf4j;
 import telran.probes.dto.ProbeData;
-import telran.probes.entity.ProbeDataRepo;
 import telran.probes.model.ProbeDataDoc;
+import telran.probes.repo.ProbeDataRepo;
 
 @SpringBootApplication
 @Slf4j

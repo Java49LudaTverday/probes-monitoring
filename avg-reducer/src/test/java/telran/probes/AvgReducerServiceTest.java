@@ -50,34 +50,66 @@ class AvgReducerServiceTest {
 		mapRedis.put(SENSOR_ID_NO_AVG, PROBES_LIST_NO_AVG);
 		mapRedis.put(SENSOR_ID_AVG, PROBES_LIST_AVG);
 	}
-	
+
 	@Test
-	void testNoRedisRecord() {
-		when(probesListRepo.findById(SENSOR_ID_NO_REDIS_RECORD))
-		.thenReturn(Optional.ofNullable(null));
-		when(probesListRepo.save(PROBES_LIST_NO_RECORD))
-		.thenAnswer(new Answer<ProbesList>() {
+	void testNoRedisRecord_savedIntoRedis() {
+		when(probesListRepo.findById(SENSOR_ID_NO_REDIS_RECORD)).thenReturn(Optional.ofNullable(null));
+		when(probesListRepo.save(PROBES_LIST_NO_RECORD)).thenAnswer(new Answer<ProbesList>() {
 
 			@Override
 			public ProbesList answer(InvocationOnMock invocation) throws Throwable {
 				mapRedis.put(SENSOR_ID_NO_REDIS_RECORD, invocation.getArgument(0));
 				return invocation.getArgument(0);
-			}			
+			}
 		});
 		Long res = avgValueService.getAvgValue(PROBE_NO_REDIS_RECORD);
 		assertNull(res);
 		ProbesList probesListRedis = mapRedis.get(SENSOR_ID_NO_REDIS_RECORD);
 		assertNotNull(probesListRedis);
-		assertEquals(VALUE,probesListRedis.getValues().get(0));
+		assertEquals(VALUE, probesListRedis.getValues().get(0));
 	}
+
 	@Test
-	void testNoAvgValue() {
-		//TODO
+	void testNoAvgValue_returnNull() {
+		assertTrue(mapRedis.get(SENSOR_ID_NO_AVG).getValues().isEmpty());
+		when(probesListRepo.findById(SENSOR_ID_NO_AVG))
+		.thenReturn(Optional.of(PROBES_LIST_NO_AVG));
+		
+		when(probesListRepo.save(PROBES_LIST_NO_AVG))
+		.thenAnswer(new Answer<ProbesList>() {
+
+			@Override
+			public ProbesList answer(InvocationOnMock invocation) throws Throwable {
+				ProbesList probesList = invocation.getArgument(0);
+				mapRedis.replace(SENSOR_ID_NO_AVG, probesList);
+				return probesList;
+			}
+		});
+		Long res = avgValueService.getAvgValue(PROBE_NO_AVG);
+		assertNull(res);
+		List<Float> newList = mapRedis.get(SENSOR_ID_NO_AVG).getValues();
+		assertEquals(1, newList.size());
+		assertIterableEquals(VALUES_NO_AVG, newList);
 	}
+
 	@Test
-	void testAvgValue() {
-		//TODO
+	void testAvgValue_returnValue() {
+		assertEquals(mapRedis.get(SENSOR_ID_AVG).getValues().size(), 1);
+		when(probesListRepo.findById(SENSOR_ID_AVG))
+		.thenReturn(Optional.of(PROBES_LIST_AVG));
+		when(probesListRepo.save(PROBES_LIST_AVG))
+		.thenAnswer(new Answer<ProbesList>() {
+
+			@Override
+			public ProbesList answer(InvocationOnMock invocation) throws Throwable {
+				mapRedis.replace(SENSOR_ID_NO_AVG, invocation.getArgument(0));
+				return invocation.getArgument(0);
+			}
+		});
+		Long res = avgValueService.getAvgValue(PROBE_AVG);
+		assertEquals(100, res);
+		List<Float> list = mapRedis.get(SENSOR_ID_AVG).getValues();
+		assertTrue(list.isEmpty());
 	}
-	
 
 }

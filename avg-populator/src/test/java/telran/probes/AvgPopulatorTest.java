@@ -13,8 +13,8 @@ import org.springframework.context.annotation.Import;
 import org.springframework.messaging.support.GenericMessage;
 
 import telran.probes.dto.ProbeData;
-import telran.probes.entity.ProbeDataRepo;
 import telran.probes.model.ProbeDataDoc;
+import telran.probes.repo.ProbeDataRepo;
 
 @SpringBootTest
 @Import(TestChannelBinderConfiguration.class)
