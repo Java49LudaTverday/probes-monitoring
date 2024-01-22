@@ -17,13 +17,10 @@ import telran.probes.entity.ProbeDataRepo;
 import telran.probes.model.ProbeDataDoc;
 
 @SpringBootTest
-@AutoConfigureMockMvc
 @Import(TestChannelBinderConfiguration.class)
 class AvgPopulatorTest {
 	private static final long SENSORE_ID = 123l;
 	private static final ProbeData RECEIVED_PROBE_DATA = new ProbeData(SENSORE_ID, 50f, 0);
-	@Autowired
-	OutputDestination consumer;
 	@Autowired
 	InputDestination producer;
 	@Autowired
