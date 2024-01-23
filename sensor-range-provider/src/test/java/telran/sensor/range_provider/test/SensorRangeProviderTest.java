@@ -3,13 +3,12 @@ package telran.sensor.range_provider.test;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import telran.sensor.range_provider.dto.Range;
+import telran.probes.dto.Range;
 import telran.sensor.range_provider.service.SensorRangeProviderService;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,7 +16,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static telran.sensor.range_provider.api.UrlConstants.*;
 
-//@WebMvcTest
+
 @SpringBootTest
 @AutoConfigureMockMvc
 public class SensorRangeProviderTest {

@@ -10,10 +10,10 @@ import jakarta.validation.Constraint;
 import jakarta.validation.constraints.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import telran.sensor.range_provider.dto.Range;
 import telran.sensor.range_provider.service.SensorRangeProviderService;
 import static telran.sensor.range_provider.api.ConstraintConstants.*;
 
+import telran.probes.dto.Range;
 import telran.sensor.range_provider.api.*;
 
 @RestController
