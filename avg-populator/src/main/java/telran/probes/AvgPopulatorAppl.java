@@ -29,9 +29,7 @@ public class AvgPopulatorAppl {
 
 	void consumerMethod(ProbeData probeData) {
 		log.debug("received probe: {}", probeData);
-		ProbeDataDoc probeDoc = new ProbeDataDoc(probeData.sensorId(), probeData.value(),
-				Instant.ofEpochMilli(probeData.timestamp())
-				.atZone(ZoneId.systemDefault()).toLocalDateTime()); 
+		ProbeDataDoc probeDoc = new ProbeDataDoc(probeData); 
 		log.debug("probeDataDoc {} has been saved", probeDoc);
 		probeRepo.save(probeDoc);
 	}
