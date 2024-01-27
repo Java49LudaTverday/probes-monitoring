@@ -39,7 +39,7 @@ public class AnalyzerAppl {
 		long sensorId = probeData.sensorId();
 		SensorRange range = providerService.getSensorRange(probeData.sensorId());
 	float value = probeData.value();
-    int border = 0;
+    float border = 0;
 	if(value < range.minValue()) {
 		border = range.minValue();
 	} else if(value > range.maxValue()) {

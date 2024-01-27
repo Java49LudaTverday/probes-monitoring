@@ -3,6 +3,8 @@ package telran.probes;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
+import java.util.function.Consumer;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -37,7 +39,7 @@ class AnalyzerControllerTest {
 			new SensorRange(MIN_VALUE_NO_DEVIATION,MAX_VALUE_DEVIATION);
 	private static final float VALUE = 50f;
 	static final ProbeDataDeviation DATA_MIN_DEVIATION
-	            = new ProbeDataDeviation(SENSOR_ID, VALUE,VALUE -  MAX_VALUE_DEVIATION, MAX_VALUE_DEVIATION);
+	            = new ProbeDataDeviation(SENSOR_ID, VALUE, MAX_VALUE_DEVIATION-VALUE  , MAX_VALUE_DEVIATION);
 	
 	static final ProbeData probeData = new ProbeData(SENSOR_ID, VALUE, 0);
 	ObjectMapper mapper = new ObjectMapper();
@@ -48,6 +50,8 @@ class AnalyzerControllerTest {
 	OutputDestination consumer;
 	String bindingNameProducer = "deviation-out-0";
 	String bindingNameConsumer = "consumerProbeData-in-0";
+	@MockBean
+	Consumer<String> configChangeConsumer;
 	@MockBean
 	SensorRangeProviderService providerService;
 
