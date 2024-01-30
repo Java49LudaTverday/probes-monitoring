@@ -32,23 +32,37 @@ public class SensorsServiceImpl implements SensorsService {
 	@Scheduled(fixedDelayString = "${app.sensors.fixedDelay.in.millis:1000}")
 	public void runPeriodicTask() {
 		List<SensorRangeDoc> sensors = sensorRangeRepo.findAll();
-		log.trace("gets rensors: {}", sensors);
+		log.trace("gets sensors: {}", sensors);
 		sensors.forEach(this:: sensorsProcessing);
 
 	}
 	private void sensorsProcessing (SensorRangeDoc sensor) {
+		long sensorId = sensor.getSensorId();
 		float minValue = sensor.getMinValue();
 		float maxValue = sensor.getMaxValue();
-		float currentValue = getRandomCurrentValue(minValue, maxValue);
+		float currentValue = getRandomCurrentValue(minValue, maxValue, sensorId);
 		ProbeData currentProbeData  = new ProbeData(sensor.getSensorId(), currentValue, 
 				System.currentTimeMillis());
-		log.debug("send probe value: {}", currentProbeData);
+		log.debug("sensor id : {} , send probe value: {}", sensorId,  currentProbeData);
 		streamBridge.send(sensorValueBindingName, currentProbeData);
 	}
-	private float getRandomCurrentValue(float minValue, float maxValue) {
-		float res = RANDOM.nextFloat(minValue, maxValue + 1);
+	private float getRandomCurrentValue(float minValue, float maxValue, long sensorId) {
+		float res = 0;
+		float probability = RANDOM.nextFloat();
+		if(probability < 0.1) {
+			res = getRandomFloat(minValue - 1, maxValue);
+			log.warn("sensor id : {} , received value {} less than min range",sensorId, res);
+		} else if (probability > 0.9) {
+			res = getRandomFloat(maxValue , maxValue + 1);
+			log.warn("sensor id : {} , received value {} greater than max range",sensorId, res);
+		} else {
+			res = getRandomFloat(minValue, maxValue);
+		}
 		return res;
 //		return (float) ((Math.random() * (maxValue + 1 - minValue)) + minValue); ;
+	}
+	private float getRandomFloat(float minValue, float maxValue) {
+		return RANDOM.nextFloat(minValue, maxValue);
 	}
 
 }
