@@ -22,7 +22,6 @@ import telran.probes.repo.SensorRangeRepo;
 @Slf4j
 public class SensorsServiceImpl implements SensorsService {
 	final SensorRangeRepo sensorRangeRepo;
-	final SensorEmailRepo sensorEmailRepo;
 	final StreamBridge streamBridge;
 	@Value("${app.sensor.value.binding.name:sensor_value-out-0}")
 	private String sensorValueBindingName;
@@ -41,13 +40,13 @@ public class SensorsServiceImpl implements SensorsService {
 		float minValue = sensor.getMinValue();
 		float maxValue = sensor.getMaxValue();
 		float currentValue = getRandomCurrentValue(minValue, maxValue, sensorId);
-		ProbeData currentProbeData  = new ProbeData(sensor.getSensorId(), currentValue, 
-				System.currentTimeMillis());
-		log.debug("sensor id : {} , send probe value: {}", sensorId,  currentProbeData);
-		streamBridge.send(sensorValueBindingName, currentProbeData);
+		ProbeData probeData  = new ProbeData(sensorId, currentValue, System.currentTimeMillis());
+		log.debug("sensor id : {} , send probe data: {}", sensorId,  probeData);
+		streamBridge.send(sensorValueBindingName, probeData);
 	}
+	
 	private float getRandomCurrentValue(float minValue, float maxValue, long sensorId) {
-		float res = 0;
+		float res = Float.MIN_VALUE;
 		float probability = RANDOM.nextFloat();
 		if(probability < 0.1) {
 			res = getRandomFloat(minValue - 1, maxValue);
