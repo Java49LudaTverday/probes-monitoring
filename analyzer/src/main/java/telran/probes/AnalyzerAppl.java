@@ -39,13 +39,13 @@ public class AnalyzerAppl {
 		long sensorId = probeData.sensorId();
 		SensorRange range = providerService.getSensorRange(probeData.sensorId());
 	float value = probeData.value();
-    float border = 0;
+    float border = Float.MIN_VALUE;
 	if(value < range.minValue()) {
 		border = range.minValue();
 	} else if(value > range.maxValue()) {
 		border = range.maxValue();
 	}
-	if (border != 0) {
+	if (border != Float.MIN_VALUE) {
 		float deviation = value - border;
 		log.debug("deviation: {}", deviation);
 		ProbeDataDeviation dataDeviation = 
