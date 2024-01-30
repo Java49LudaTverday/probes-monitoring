@@ -1,6 +1,4 @@
-package telran.email_provider.model;
-
-import java.util.List;
+package telran.probes.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -8,15 +6,14 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import telran.probes.dto.EmailData;
 
-
-@Document(collection="sensors")
-@AllArgsConstructor
+@Document(collection = "sensor_emails")
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
-public class SensorDoc {
+public class SensorEmailDoc {
 	@Id
-    long id;
+	long sensorId;
 	String[] emails;
+
 }
