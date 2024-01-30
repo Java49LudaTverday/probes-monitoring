@@ -1,11 +1,11 @@
-package telran.sensor.range_provider.repo;
+package telran.probes.repo;
 
-import telran.sensor.range_provider.model.SensorDoc;
 import org.springframework.data.mongodb.repository.MongoRepository;
+
+import telran.probes.model.SensorDoc;
 
 
 public interface SensorRepo extends MongoRepository<SensorDoc, Long> {
-	
-	SensorDoc findById(long id);
+
 
 }

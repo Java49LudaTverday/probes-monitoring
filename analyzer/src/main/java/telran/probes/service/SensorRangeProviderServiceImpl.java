@@ -60,9 +60,12 @@ public class SensorRangeProviderServiceImpl implements SensorRangeProviderServic
 	private SensorRange getRangeFromService(long id) {
 		SensorRange res = null;
 		try {
-			ResponseEntity<SensorRange> responseEntity = 
+			ResponseEntity<?> responseEntity = 
 					restTemplate.exchange(getFullUrl(id), HttpMethod.GET,null, SensorRange.class);
-		res = responseEntity.getBody();
+			if(!responseEntity.getStatusCode().is2xxSuccessful()) {
+				new Exception((String)responseEntity.getBody());
+			}
+			res = (SensorRange) responseEntity.getBody();
 		mapRanges.put(id, res);
 		} catch (Exception e) {
 			log.error("no sensor range provided for sensor {}",id  );

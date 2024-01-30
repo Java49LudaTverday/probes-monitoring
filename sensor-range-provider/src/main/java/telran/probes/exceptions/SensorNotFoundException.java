@@ -1,4 +1,4 @@
-package telran.sensor.range_provider.exceptions;
+package telran.probes.exceptions;
 
 import telran.exceptions.NotFoundException;
 
