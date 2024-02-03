@@ -26,5 +26,10 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>telran.spring</groupId>
+			<artifactId>web-exceptions-handler</artifactId>
+			<version>0.0.1</version>
+		</dependency>
 	</dependencies>
 </project>

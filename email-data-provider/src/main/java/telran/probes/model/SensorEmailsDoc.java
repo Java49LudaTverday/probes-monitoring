@@ -1,22 +1,20 @@
-package telran.email_provider.model;
-
-import java.util.List;
+package telran.probes.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import telran.probes.dto.EmailData;
 
-
-@Document(collection="sensors")
-@AllArgsConstructor
-@NoArgsConstructor
+@Document(collection="sensor-emails")
 @Getter
-public class SensorDoc {
+@EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
+public class SensorEmailsDoc {
 	@Id
-    long id;
+	long sensorId;
 	String[] emails;
 }
