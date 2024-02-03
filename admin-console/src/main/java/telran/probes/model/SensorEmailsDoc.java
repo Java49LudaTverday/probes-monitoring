@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import telran.probes.dto.SensorEmailsDto;
 
 @Document(collection="sensor-emails")
 @Getter
@@ -17,4 +18,9 @@ public class SensorEmailsDoc {
 	@Id
 	long sensorId;
 	String[] emails;
+	
+	public SensorEmailsDoc (SensorEmailsDto sensorEmailsDto) {
+		this.sensorId = sensorEmailsDto.sensorId();
+		this.emails = sensorEmailsDto.emails();
+	}
 }
