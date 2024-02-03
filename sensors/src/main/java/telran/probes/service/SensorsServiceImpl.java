@@ -1,67 +1,61 @@
 package telran.probes.service;
 
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.stream.function.StreamBridge;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import telran.probes.configuration.SensorData;
+import telran.probes.configuration.SensorsConfiguration;
 import telran.probes.dto.ProbeData;
-import telran.probes.model.SensorRangeDoc;
-import telran.probes.repo.SensorEmailRepo;
-import telran.probes.repo.SensorRangeRepo;
+import telran.probes.dto.SensorRange;
 
 @Service
-@EnableScheduling
-@RequiredArgsConstructor
 @Slf4j
-public class SensorsServiceImpl implements SensorsService {
-	final SensorRangeRepo sensorRangeRepo;
-	final StreamBridge streamBridge;
-	@Value("${app.sensor.value.binding.name:sensor_value-out-0}")
-	private String sensorValueBindingName;
-	private final static Random RANDOM = new Random();
-
+@RequiredArgsConstructor
+public class SensorsServiceImpl implements SensorsService{
+	final SensorsConfiguration sensorsConfiguration;
 	@Override
-	@Scheduled(fixedDelayString = "${app.sensors.fixedDelay.in.millis:1000}")
-	public void runPeriodicTask() {
-		List<SensorRangeDoc> sensors = sensorRangeRepo.findAll();
-		log.trace("gets sensors: {}", sensors);
-		sensors.forEach(this:: sensorsProcessing);
-
+	public ProbeData getRandomProbeData() {
+		Map<Long, SensorData> sensorsMap = sensorsConfiguration.getSensorsDataMap();
+		long[] sensorIds = sensorsMap.keySet().stream().mapToLong(id -> id).toArray();
+		long id = getRandomId(sensorIds);
+		SensorData sensorData = sensorsMap.get(id);
+		SensorRange range = new SensorRange(sensorData.minValue(), sensorData.maxValue());
+		
+		return new ProbeData(id, getRandomInt(1, 100) < sensorsConfiguration.getDeviationPercent() ? 
+				getRandomDeviation(range) : getRandomNormalValue(range), System.currentTimeMillis());
 	}
-	private void sensorsProcessing (SensorRangeDoc sensor) {
-		long sensorId = sensor.getSensorId();
-		float minValue = sensor.getMinValue();
-		float maxValue = sensor.getMaxValue();
-		float currentValue = getRandomCurrentValue(minValue, maxValue, sensorId);
-		ProbeData probeData  = new ProbeData(sensorId, currentValue, System.currentTimeMillis());
-		log.debug("sensor id : {} , send probe data: {}", sensorId,  probeData);
-		streamBridge.send(sensorValueBindingName, probeData);
+	private long getRandomId(long[] sensorIds) {
+		int index = getRandomInt(0, sensorIds.length);
+		return sensorIds[index];
 	}
-	
-	private float getRandomCurrentValue(float minValue, float maxValue, long sensorId) {
-		float res = Float.MIN_VALUE;
-		float probability = RANDOM.nextFloat();
-		if(probability < 0.1) {
-			res = getRandomFloat(minValue - 1, maxValue);
-			log.warn("sensor id : {} , received value {} less than min range",sensorId, res);
-		} else if (probability > 0.9) {
-			res = getRandomFloat(maxValue , maxValue + 1);
-			log.warn("sensor id : {} , received value {} greater than max range",sensorId, res);
-		} else {
-			res = getRandomFloat(minValue, maxValue);
-		}
+	private float getRandomNormalValue(SensorRange range) {
+		
+		return ThreadLocalRandom.current().nextFloat(range.minValue(), range.maxValue());
+	}
+	private float getRandomDeviation(SensorRange range) {
+		
+		return getRandomInt(1,100) < sensorsConfiguration.getNegativeDeviationPercent() ?
+				getLessMin(range.minValue()) : getGreaterMax(range.maxValue());
+	}
+	private float getGreaterMax(float maxValue) {
+		
+		float res =  maxValue + Math.abs(maxValue * sensorsConfiguration.getDeviationFactor());
+		log.debug("positive deviation - maxValue: {}, new value: {}", maxValue, res);
 		return res;
-//		return (float) ((Math.random() * (maxValue + 1 - minValue)) + minValue); ;
 	}
-	private float getRandomFloat(float minValue, float maxValue) {
-		return RANDOM.nextFloat(minValue, maxValue);
+	private float getLessMin(float minValue) {
+		
+		float res =  minValue - Math.abs(minValue * sensorsConfiguration.getDeviationFactor());
+		log.debug("negative deviation - minValue: {}, new value: {}", minValue, res);
+		return res;
+	}
+	private int getRandomInt(int min, int max) {
+		
+		return ThreadLocalRandom.current().nextInt(min, max);
 	}
 
 }
