@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class SensorDoc {
+public class SensorRangeDoc {
 	@Id
     long id;
 	float minValue;

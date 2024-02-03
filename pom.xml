@@ -98,5 +98,6 @@
 		<module>EmailNotifier</module>
 		<module>email-notifier</module>
 		<module>sensors</module>
+		<module>admin-console</module>
 	</modules>
 </project>

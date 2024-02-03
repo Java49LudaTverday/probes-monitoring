@@ -7,15 +7,15 @@ import org.springframework.stereotype.Component;
 import lombok.RequiredArgsConstructor;
 import telran.probes.dto.Sensor;
 import telran.probes.dto.SensorRange;
-import telran.probes.model.SensorDoc;
-import telran.probes.repo.SensorRepo;
+import telran.probes.model.SensorRangeDoc;
+import telran.probes.repo.SensorRangeRepo;
 
 
 @Component
 @RequiredArgsConstructor
 public class DbTestCreation {
 	
-	final SensorRepo sensorRepo;
+	final SensorRangeRepo sensorRepo;
 	/***************************/
 	final static long ID_1 = 100l;
 	final static float MIN_VALUE_1 = 0;
@@ -39,8 +39,8 @@ public class DbTestCreation {
 	};
 	public void createDB () {
 		sensorRepo.deleteAll();
-		List<SensorDoc> sensorDocs = List.of(sensors).stream()
-				.map(s -> new SensorDoc(s.id(), s.minValue(), s.maxValue())).toList();
+		List<SensorRangeDoc> sensorDocs = List.of(sensors).stream()
+				.map(s -> new SensorRangeDoc(s.id(), s.minValue(), s.maxValue())).toList();
 		sensorRepo.saveAll(sensorDocs);
 
 	}
