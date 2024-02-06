@@ -1,5 +1,7 @@
 package telran.probes.model;
 
+import java.util.Arrays;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -19,8 +21,11 @@ public class SensorEmailsDoc {
 	long sensorId;
 	String[] emails;
 	
-	public SensorEmailsDoc (SensorEmailsDto sensorEmailsDto) {
-		this.sensorId = sensorEmailsDto.sensorId();
-		this.emails = sensorEmailsDto.emails();
+	public static SensorEmailsDoc of(SensorEmailsDto sensorEmailsDto) {
+		String[]emailsDto = sensorEmailsDto.emails();
+		return new SensorEmailsDoc(sensorEmailsDto.sensorId(), Arrays.copyOf(emailsDto, emailsDto.length));
+	}
+	public SensorEmailsDto build() {
+		return new SensorEmailsDto(sensorId, emails);
 	}
 }

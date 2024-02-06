@@ -1,14 +1,15 @@
 package telran.probes.exceptions;
 
-import telran.exceptions.NotFoundException;
 
+import telran.exceptions.NotFoundException;
+import telran.probes.dto.ErrorMessages;
+
+@SuppressWarnings("serial")
 public class SensorNotFoundException extends NotFoundException{
 
-	private static final long serialVersionUID = 1L;
-
-	public SensorNotFoundException(String message) {
-		super(message);
+	public SensorNotFoundException() {
+		super(ErrorMessages.SENSOR_NOT_FOUND);
+		
 	}
-	
 
 }
