@@ -16,8 +16,8 @@ public class EmailProviderConfiguration {
 	int port;
 	@Value("${app.sensor.email.provider.url:/sensor/email}")
 	String url;
-	@Value("${app.sensor.email.provider.default.email:admin@gmail.com}")
-	String defualtEmail;
+	@Value("${app.sensor.email.provider.default.email:ludachka22@gmail.com}")
+	String[] defualtEmails;
 
 	@Bean
 	RestTemplate getRestTemplate() {

@@ -19,7 +19,7 @@ import telran.probes.service.AvgValueService;
 public class AvgReducerAppl {
 	final AvgValueService avgValueService;
 	final StreamBridge streamBreage;
-	@Value("${app.value.binding.name}")
+	@Value("${app.avg.binding.name}")
 	String avgValueBindingName;
 	
 	public static void main(String[] args) {
