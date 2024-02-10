@@ -11,7 +11,7 @@ import telran.probes.service.EmailDataProviderService;
 @Slf4j
 public class EmailDataProviderController {
 final EmailDataProviderService providerService;
-@GetMapping("${app.emails.provider.url}" + "/{id}")
+@GetMapping("${app.sensor.email.provider.url}" + "/{id}")
 String[] getEmails(@PathVariable(name="id") long id) {
 	String[] emails =  providerService.getEmails(id);
 	log.debug("emails received are {}", Arrays.deepToString(emails));
