@@ -18,7 +18,7 @@ import telran.probes.service.AvgValueService;
 @Slf4j
 public class AvgReducerAppl {
 	final AvgValueService avgValueService;
-	final StreamBridge streamBreage;
+	final StreamBridge streamBridge;
 	@Value("${app.avg.binding.name}")
 	String avgValueBindingName;
 	
@@ -37,7 +37,7 @@ public class AvgReducerAppl {
 		log.trace("get avarage value: {}",avgValue );
 		if(avgValue != null && avgValue != 0) {
 			log.debug("send avarage value {}", avgValue);
-			streamBreage.send(avgValueBindingName, 
+			streamBridge.send(avgValueBindingName, 
 					new ProbeData(probeData.sensorId(), avgValue, System.currentTimeMillis()));
 		}
 	}

@@ -28,7 +28,7 @@ class AvgPopulatorTest {
 	InputDestination producer;
 	@Autowired
 	ProbeDataRepo probeRepo;
-	String bindingNameConsumer = "consumerProbeData-in-0";
+	String bindingNameConsumer = "consumerProbeDataPopulator-in-0";
 	
 	@Test
 	void test() {

@@ -26,7 +26,7 @@ class EmailDataProviderTest {
 MockMvc mockMvc;
 @Autowired
 SensorEmailsRepo sensorEmailsRepo;
-@Value("${app.emails.provider.url}")
+@Value("${app.sensor.email.provider.url}")
 String url;
 static final long SENSOR_ID = 123;
 

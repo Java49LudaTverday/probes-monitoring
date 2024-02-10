@@ -1,4 +1,4 @@
-package telran.probes.service;
+package telran.probes.configuration;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
 import lombok.Getter;
-
 @Configuration
 @Getter
 public class EmailProviderConfiguration {
@@ -18,9 +17,12 @@ public class EmailProviderConfiguration {
 	String url;
 	@Value("${app.sensor.email.provider.default.email}")
 	String[] defaultEmails;
+	
 
 	@Bean
 	RestTemplate getRestTemplate() {
 		return new RestTemplate();
 	}
+	
+
 }

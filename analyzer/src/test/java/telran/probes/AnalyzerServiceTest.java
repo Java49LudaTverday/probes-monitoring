@@ -41,7 +41,7 @@ class AnalyzerServiceTest {
 	RestTemplate restTemplate;
 	@Autowired
 	SensorRangeProviderService providerService;
-	String bindingNameConsumer = "configChangeConsumer-in-0";
+	String bindingNameConsumer = "configChangeConsumerAnalyzer-in-0";
 
 	static final long SENSOR_ID = 123l;
 	static final long SENSOR_ID_NOT_EXIST = 125l;

@@ -63,4 +63,5 @@ public class EmailNotifierAppl {
 		return String.format("Sensor %d has value %f \n deviation is %f", 
 				deviationData.sensorId(), deviationData.value(), deviationData.deviation());
 	}
+
 }

@@ -7,6 +7,7 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.cloud.stream.binder.test.InputDestination;
@@ -33,7 +34,8 @@ class AvgReducerControllerTest {
 	InputDestination producer;
 	@Autowired
 	OutputDestination consumer;
-	String bindingNameProducer = "value-out-0";
+	@Value("${app.avg.binding.name}")
+	String bindingNameProducer;
 	String bindingNameConsumer = "consumerProbeDataAvg-in-0";
 	@MockBean
 	AvgValueService avgValueService;

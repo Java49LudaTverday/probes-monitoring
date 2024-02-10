@@ -49,7 +49,7 @@ class AnalyzerControllerTest {
 	@Autowired
 	OutputDestination consumer;
 	String bindingNameProducer = "deviation-out-0";
-	String bindingNameConsumer = "consumerProbeData-in-0";
+	String bindingNameConsumerAnalyzer = "consumerProbeDataAnalyzer-in-0";
 	@MockBean
 	Consumer<String> configChangeConsumer;
 	@MockBean
@@ -59,7 +59,7 @@ class AnalyzerControllerTest {
 	void noDeviationTest() {
 		when(providerService.getSensorRange(SENSOR_ID))
 		.thenReturn(SENSOR_RANGE_NO_DEVIATION);
-		producer.send(new GenericMessage<ProbeData>(probeData), bindingNameConsumer);
+		producer.send(new GenericMessage<ProbeData>(probeData), bindingNameConsumerAnalyzer);
 		Message<byte[]> message = consumer.receive(10,bindingNameProducer);
 		assertNull(message);
 	}
@@ -67,8 +67,8 @@ class AnalyzerControllerTest {
 	void minDeviationTest() throws Exception{
 		when(providerService.getSensorRange(SENSOR_ID))
 		.thenReturn(SENSOR_RANGE_MIN_DEVIATION);
-		producer.send(new GenericMessage<ProbeData>(probeData), bindingNameConsumer);
-		Message<byte[]> message = consumer.receive(10,bindingNameProducer);
+		producer.send(new GenericMessage<ProbeData>(probeData), bindingNameConsumerAnalyzer);
+		Message<byte[]> message = consumer.receive(10, bindingNameProducer);
 		assertNotNull(message);
 		ProbeDataDeviation actualDeviation = mapper.readValue(message.getPayload(),ProbeDataDeviation.class );
 		assertEquals(DATA_MIN_DEVIATION, actualDeviation);
