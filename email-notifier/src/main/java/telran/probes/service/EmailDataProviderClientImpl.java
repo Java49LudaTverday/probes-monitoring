@@ -23,9 +23,9 @@ import lombok.extern.slf4j.Slf4j;
 public class EmailDataProviderClientImpl implements EmailDataProviderClient {
 	@Getter
 	HashMap<Long, String[]> mapEmails = new HashMap<>();
-	@Value("${app.update.message.delimiter:#}")
+	@Value("${app.update.message.delimiter}")
 	String delimiter;
-	@Value("${app.update.token.emails:emails-update}")
+	@Value("${app.update.token.emails}")
 	String emailsUpdateToken;
 	final EmailProviderConfiguration providerConfiguration;
 	final RestTemplate restTemplate;
@@ -56,7 +56,7 @@ public class EmailDataProviderClientImpl implements EmailDataProviderClient {
 	}
 	private String[] getDefaultEmails() {
 		
-		return providerConfiguration.getDefualtEmails();
+		return providerConfiguration.getDefaultEmails();
 	}
 	private String getFullUrl(long sensorId) {
 		String res = String.format("http://%s:%d%s/%d",

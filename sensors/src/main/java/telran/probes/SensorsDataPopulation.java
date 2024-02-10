@@ -20,9 +20,9 @@ public class SensorsDataPopulation {
 	final static List<SensorRangeDoc> sensorsRanges = List.of( new SensorRangeDoc(123l, 100f, 200f),
 			new SensorRangeDoc(124l, -10f, 20f),
 			new SensorRangeDoc(125l, -10, 20)) ;
-	final static List<SensorEmailDoc> sensorsEmails = List.of( new SensorEmailDoc(123l, new String[] { "service123@gmail.com" }),
-			new SensorEmailDoc(124l, new String[] { "service124@gmail.com" }),
-			new SensorEmailDoc(125l, new String[] { "service124@gmail.com" })) ;
+	final static List<SensorEmailDoc> sensorsEmails = List.of( new SensorEmailDoc(123l, new String[] { "ludachka22@gmail.com" }),
+			new SensorEmailDoc(124l, new String[] { "ludachka22@gmail.com" }),
+			new SensorEmailDoc(125l, new String[] { "ludachka22@gmail.com" })) ;
 	
 	final SensorEmailRepo sensorsEmailRepo;
 	final SensorRangeRepo sensorsRangesRepo;

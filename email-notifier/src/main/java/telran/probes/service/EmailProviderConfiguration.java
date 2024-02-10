@@ -10,14 +10,14 @@ import lombok.Getter;
 @Configuration
 @Getter
 public class EmailProviderConfiguration {
-	@Value("${app.sensor.email.provider.host:localhost}")
+	@Value("${app.sensor.email.provider.host}")
 	String host;
-	@Value("${app.sensor.email.provider.port:8082}")
+	@Value("${app.sensor.email.provider.port}")
 	int port;
-	@Value("${app.sensor.email.provider.url:/sensor/email}")
+	@Value("${app.sensor.email.provider.url}")
 	String url;
-	@Value("${app.sensor.email.provider.default.email:ludachka22@gmail.com}")
-	String[] defualtEmails;
+	@Value("${app.sensor.email.provider.default.email}")
+	String[] defaultEmails;
 
 	@Bean
 	RestTemplate getRestTemplate() {
