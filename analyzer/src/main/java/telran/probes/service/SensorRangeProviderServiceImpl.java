@@ -38,7 +38,7 @@ public class SensorRangeProviderServiceImpl implements SensorRangeProviderServic
 	}
 
 	@Bean
-	Consumer<String> configChangeConsumer() {
+	Consumer<String> configChangeConsumerAnalizer() {
 		return this::checkConfigurationUpdate;
 	}
 

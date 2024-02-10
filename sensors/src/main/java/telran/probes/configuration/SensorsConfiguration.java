@@ -22,8 +22,8 @@ public class SensorsConfiguration {
 	};
 	@Value("${app.sensors.deviation.percent: 10}")
 	int deviationPercent;
-	@Value("${app.sensors.deviation.factor: 0.3}")
+	@Value("${app.sensors.deviation.factor: 0.2}")
 	float deviationFactor;
-	@Value("${app.sensors.negative.deviation.percent: 30}")
+	@Value("${app.sensors.negative.deviation.percent: 10}")
 	int negativeDeviationPercent;
 }

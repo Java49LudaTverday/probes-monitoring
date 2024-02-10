@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Document(collection="sensors")
+@Document(collection="sensor-ranges")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
