@@ -23,7 +23,7 @@ public class AvgPopulatorAppl {
 	}
 	
 	@Bean
-	Consumer<ProbeData> consumerProbeData (){
+	Consumer<ProbeData> consumerProbeDataPopulator (){
 		return this::consumerMethod;
 	}
 

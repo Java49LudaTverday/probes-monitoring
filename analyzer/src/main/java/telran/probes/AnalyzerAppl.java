@@ -30,7 +30,7 @@ public class AnalyzerAppl {
 	}
 
 	@Bean
-	Consumer<ProbeData> consumerProbeData() {
+	Consumer<ProbeData> consumerProbeDataAnalizer() {
 		return this::consumeMethod;
 	}
 
