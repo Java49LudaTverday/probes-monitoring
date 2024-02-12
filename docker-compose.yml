@@ -24,7 +24,7 @@ services:
         reservations:
           cpus: '0.3'
           memory: 200M 
-    enviroment:
+    environment:
       - CONFLUENT_API_SECRET=${CONFLUENT_API_SECRET}
   avg-populator:
     build:
@@ -37,7 +37,7 @@ services:
         reservations:
           cpus: '0.3'
           memory: 200M 
-    enviroment:
+    environment:
       - CONFLUENT_API_SECRET=${CONFLUENT_API_SECRET}
       - PASSWORD_MONGO=${PASSWORD_MONGO}
   avg-reducer:
@@ -51,7 +51,7 @@ services:
         reservations:
           cpus: '0.3'
           memory: 200M 
-    enviroment:
+    environment:
       - CONFLUENT_API_SECRET=${CONFLUENT_API_SECRET}
       - PASSWORD_MONGO=${PASSWORD_MONGO}
   email-data-provider:
@@ -65,7 +65,7 @@ services:
         reservations:
           cpus: '0.3'
           memory: 200M 
-    enviroment:
+    environment:
       - PASSWORD_MONGO=${PASSWORD_MONGO}
     ports:
       - 8585:8585
@@ -80,7 +80,7 @@ services:
         reservations:
           cpus: '0.3'
           memory: 200M 
-    enviroment:
+    environment:
       - GMAIL_PASSWORD=${GMAIL_PASSWORD}
       - CONFLUENT_API_SECRET=${CONFLUENT_API_SECRET}
   sensor-range-provider:
@@ -94,7 +94,7 @@ services:
         reservations:
           cpus: '0.3'
           memory: 200M 
-    enviroment:
+    environment:
       - PASSWORD_MONGO=${PASSWORD_MONGO}
     ports:
       - 8282:8282
@@ -109,7 +109,7 @@ services:
         reservations:
           cpus: '0.3'
           memory: 200M 
-    enviroment:
+    environment:
       - PASSWORD_MONGO=${PASSWORD_MONGO}
       - CONFLUENT_API_SECRET=${CONFLUENT_API_SECRET}
     ports:
