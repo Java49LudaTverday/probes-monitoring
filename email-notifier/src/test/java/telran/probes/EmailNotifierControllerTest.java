@@ -27,6 +27,7 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import telran.probes.dto.ProbeDataDeviation;
 import telran.probes.service.EmailDataProviderClient;
+import telran.probes.service.EmailDataProviderClientImpl;
 
 @SpringBootTest
 @Import(TestChannelBinderConfiguration.class)
@@ -38,8 +39,8 @@ InputDestination producer;
 	OutputDestination consumer;
 	@MockBean
 	EmailDataProviderClient providerClient;
-	@MockBean
-	Consumer<String> configChangeConsumer;
+//	@MockBean
+//	Consumer<String> configChangeConsumer;
 	@RegisterExtension
 	static GreenMailExtension mailExtension = new GreenMailExtension(ServerSetupTest.SMTP)
 	.withConfiguration(GreenMailConfiguration.aConfig().withUser("user", "12345.com"));
