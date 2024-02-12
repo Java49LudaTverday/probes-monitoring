@@ -113,5 +113,5 @@ services:
       - PASSWORD_MONGO=${PASSWORD_MONGO}
       - CONFLUENT_API_SECRET=${CONFLUENT_API_SECRET}
     ports:
-      -8484:8484
+      - 8484:8484
  
