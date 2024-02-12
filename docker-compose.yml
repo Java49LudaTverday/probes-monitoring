@@ -53,7 +53,7 @@ services:
           memory: 200M 
     environment:
       - CONFLUENT_API_SECRET=${CONFLUENT_API_SECRET}
-      - PASSWORD_MONGO=${PASSWORD_MONGO}
+      - REDIS_SECRET=${REDIS_SECRET}
   email-data-provider:
     build:
       email-data-provider #path with Dockerfile for email-data-provider
