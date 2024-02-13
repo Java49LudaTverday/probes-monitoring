@@ -23,7 +23,7 @@ import telran.probes.api.UrlConstants;
 import telran.probes.dto.*;
 import telran.probes.exceptions.SensorNotFoundException;
 import telran.probes.service.AdminConsoleService;
-import static telran.probes.dto.ErrorMessages.*;
+import static telran.probes.api.ErrorMessages.*;
 
 @WebMvcTest
 class AdminConsoleControllerTest {
