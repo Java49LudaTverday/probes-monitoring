@@ -19,5 +19,10 @@
 			<version>4.11.0</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>telran.spring</groupId>
+			<artifactId>web-exceptions-handler</artifactId>
+			<version>0.0.1</version>
+		</dependency>
 	 </dependencies>
 	 </project>
