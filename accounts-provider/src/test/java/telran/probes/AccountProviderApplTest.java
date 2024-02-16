@@ -17,6 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import telran.probes.api.ErrorMessages;
 import telran.probes.dto.AccountDto;
 import telran.probes.model.Account;
 import telran.probes.repo.AccountRepo;
@@ -64,7 +65,7 @@ class AccountProviderApplTest {
 		String fullUrl = "http://localhost:8080"+ url + "/" + EMAIL_WRONG_FORMAT;
 		String response = mockMvc.perform(get(fullUrl)).andExpect(status().isBadRequest())
 				.andReturn().getResponse().getContentAsString();
-		assertEquals("must be a well-formed email address", response);
+		assertEquals(ErrorMessages.WRONG_EMAIL_FORMAT, response);
 	}
 
 }

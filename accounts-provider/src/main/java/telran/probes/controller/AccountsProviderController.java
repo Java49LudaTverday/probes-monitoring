@@ -10,6 +10,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import telran.probes.api.ErrorMessages;
 import telran.probes.dto.AccountDto;
 import telran.probes.service.AccountsProviderService;
 
@@ -21,7 +22,8 @@ public class AccountsProviderController {
 	final AccountsProviderService accountsProviderService;
 
 	@GetMapping("${app.accounts.provider.url}" + "/{email}")
-	AccountDto getAccount(@PathVariable(name = "email") @NotNull @Email String email) {
+	AccountDto getAccount(@PathVariable(name = "email") @NotNull 
+			@Email(message=ErrorMessages.WRONG_EMAIL_FORMAT) String email) {
 		log.debug("email: {} has been received", email);
 		return accountsProviderService.getAccount(email);
 	}
