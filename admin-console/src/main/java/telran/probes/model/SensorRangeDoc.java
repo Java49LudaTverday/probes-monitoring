@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 import telran.probes.dto.SensorRange;
 import telran.probes.dto.SensorRangeDto;
 
-@Document(collection = "sensors")
+@Document(collection = "sensor-ranges")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

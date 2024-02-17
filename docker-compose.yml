@@ -114,4 +114,18 @@ services:
       - CONFLUENT_API_SECRET=${CONFLUENT_API_SECRET}
     ports:
       - 8484:8484
- 
+  accounts-provider:
+    build:
+      accounts-provider
+    deploy:
+      resources:
+       limits:
+        cpus: '0.5'
+        memory: 300M
+       reservations:
+        cpus: '0.3'
+        memory: 200M
+    environment:
+      - PASSWORD_MONGO=${PASSWORD_MONGO}
+    ports:
+      - 8686:8686
