@@ -104,5 +104,6 @@
 		<module>admin-console</module>
 		<module>config-server</module>
 		<module>accounts-provider</module>
+		<module>gateway</module>
 	</modules>
 </project>
