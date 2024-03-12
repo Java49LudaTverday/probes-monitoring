@@ -12,9 +12,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
+
+
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import software.amazon.awssdk.regions.Region;
 import telran.probes.dto.SensorRange;
 
 @Service
@@ -29,6 +32,7 @@ public class SensorRangeProviderServiceImpl implements SensorRangeProviderServic
 	String rangeUpdateToken;
 	final SensorRangeProviderConfiguration providerConfiguration;
 	final RestTemplate restTemplate;
+	
 
 	@Override
 	public SensorRange getSensorRange(long sensorId) {
@@ -61,8 +65,9 @@ public class SensorRangeProviderServiceImpl implements SensorRangeProviderServic
 		SensorRange res = null;
 		try {
 			ResponseEntity<?> responseEntity = 
-					restTemplate.exchange(getFullUrl(id), HttpMethod.GET,null, SensorRange.class);
-			if(!responseEntity.getStatusCode().is2xxSuccessful()) {
+					restTemplate.exchange(getFullUrl(id), HttpMethod.GET, null, SensorRange.class);
+			if(!responseEntity.getStatusCode().is2xxSuccessful()
+					|| responseEntity.getBody() == null) {
 				new Exception((String)responseEntity.getBody());
 			}
 			res = (SensorRange) responseEntity.getBody();
@@ -72,7 +77,7 @@ public class SensorRangeProviderServiceImpl implements SensorRangeProviderServic
 			res = getDefaultRange();
 			log.warn("Taken default range {}-{}", res.minValue(), res.maxValue());
 		}
-		log.debug("Range for sensor {} is {}",id, res );
+		log.debug("Range for sensor {} is {}", id, res );
 		return res;
 	}
 
@@ -83,11 +88,8 @@ public class SensorRangeProviderServiceImpl implements SensorRangeProviderServic
 	}
 
 	private String getFullUrl(long id) {
-		String res = String.format("http://%s:%d%s/%d",
-				providerConfiguration.getHost(), 
-				providerConfiguration.getPort(),
-				providerConfiguration.getUrl(),
-				id);
+		String res = String.format("%s/%d",
+				providerConfiguration.getUrl(), id);
 		log.debug("url: {}", res);
 		return res;
 	}

@@ -10,10 +10,6 @@ import lombok.Getter;
 @Configuration
 @Getter
 public class SensorRangeProviderConfiguration {
-	@Value("${app.sensor.range.provider.host:localhost}")
-	String host;
-	@Value("${app.sensor.range.provider.port:8282}")
-	int port;
 	@Value("${app.sensor.range.provider.url:/sensor/range}")
 	String url;
 	@Value("${app.sensor.range.provider.default.min:0}")

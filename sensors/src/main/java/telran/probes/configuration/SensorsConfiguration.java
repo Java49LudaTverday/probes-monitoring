@@ -20,10 +20,10 @@ public class SensorsConfiguration {
 			put(125l, new SensorData(-10, 20, new String[] { "service124@gmail.com" }));
 		}
 	};
-	@Value("${app.sensors.deviation.percent: 10}")
+	@Value("${app.sensors.deviation.percent: 20}")
 	int deviationPercent;
 	@Value("${app.sensors.deviation.factor: 0.1}")
 	float deviationFactor;
-	@Value("${app.sensors.negative.deviation.percent: 10}")
+	@Value("${app.sensors.negative.deviation.percent: 20}")
 	int negativeDeviationPercent;
 }
