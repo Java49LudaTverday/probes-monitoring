@@ -19,7 +19,7 @@ spec:
             memory: "300Mi"
             cpu: "200m"
         ports:
-        - containerPort: 8080
+        - containerPort: 8090
         env:
         - name: CONFIG_SERVER_HOST
           valueFrom: 
@@ -35,8 +35,8 @@ spec:
   selector:
     app: gateway
   ports:
-  - port: 8080
-    targetPort: 8080
+  - port: 8090
+    targetPort: 8090
   type: LoadBalancer
 
               
